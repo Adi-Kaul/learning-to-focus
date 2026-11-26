@@ -50,10 +50,30 @@ src/
   data.py       RULER NIAH loading + train/test split
   synth.py      tiny fake documents for the warm-up experiment
   generate.py   runs a model over a dataset, writes traces as JSONL
+  report.py     rescoring + tables from traces (metrics are never baked in at generation time)
+  failures.py   sorts wrong DA answers into buckets (wrong chunk, guessed without focusing, ...)
+  sample_traces.py   rejection sampling under the mask, for SFT data
   train_sft.py, rewards.py, train_grpo.py
+  plots.py      charts for the write-up
 configs/        one yaml per experiment
 tests/          pytest, runs on CPU
 notebooks/      colab runner
+```
+
+## Running things
+
+On Colab, open `notebooks/colab_runner.ipynb` (File -> Open notebook -> GitHub). It clones this repo,
+installs, builds the data and runs each phase as one cell. Outputs go to Google Drive if it's mounted,
+otherwise to `./outputs` (see `src/paths.py`).
+
+Locally, everything runs on a tiny model for checking that nothing is broken:
+
+```
+python -m src.data                      # RULER split
+python -m src.synth                     # warm-up data
+python -m src.generate --config configs/smoke_niah.yaml
+python -m src.report runs/smoke_niah
+python -m src.failures runs/smoke_niah --show 2
 ```
 
 ## Running the tests

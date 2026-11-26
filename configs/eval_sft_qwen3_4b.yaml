@@ -1,10 +1,10 @@
 # held-out eval of the SFT adapter. 3 sampled seeds + we also keep greedy comparable to baseline
 model: Qwen/Qwen3-4B
-adapter: /content/drive/MyDrive/learning-to-focus/checkpoints/sft_qwen3_4b/final
+adapter: $LTF_ROOT/checkpoints/sft_qwen3_4b/final
 data: data/niah_test.jsonl
 arms: [da]
 seeds: [0]
 temperature: 0.0
 max_new_tokens: 1024
 batch_size: 1
-out_dir: /content/drive/MyDrive/learning-to-focus/runs
+out_dir: $LTF_ROOT/runs

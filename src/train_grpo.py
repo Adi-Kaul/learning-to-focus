@@ -29,6 +29,7 @@ import yaml
 
 from src.data import read_jsonl
 from src.decode import generate
+from src.paths import expand
 from src.generate import build_prompt, git_commit
 from src.masking import training_mask
 from src.parse import replay
@@ -198,6 +199,7 @@ def main(argv=None):
     if args.config:
         cfg.update(yaml.safe_load(Path(args.config).read_text()) or {})
     cfg.update({k: v for k, v in vars(args).items() if v is not None and k != "config"})
+    cfg = {k: expand(v) for k, v in cfg.items()}
 
     tok = AutoTokenizer.from_pretrained(cfg["model"])
     rows = read_jsonl(cfg["data"])

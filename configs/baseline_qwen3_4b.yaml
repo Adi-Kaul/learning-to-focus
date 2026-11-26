@@ -7,4 +7,4 @@ seeds: [0]
 temperature: 0.0
 max_new_tokens: 1024
 batch_size: 1
-out_dir: /content/drive/MyDrive/learning-to-focus/runs
+out_dir: $LTF_ROOT/runs

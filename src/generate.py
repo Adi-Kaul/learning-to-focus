@@ -28,6 +28,7 @@ import yaml
 from src.chunking import chunks_containing
 from src.data import read_jsonl
 from src.decode import generate
+from src.paths import expand
 from src.prompts import build_da, build_vanilla
 from src.synth import chunks_from_example
 
@@ -55,6 +56,7 @@ def load_config(path, overrides):
     if path:
         cfg.update(yaml.safe_load(Path(path).read_text()) or {})
     cfg.update({k: v for k, v in overrides.items() if v is not None})
+    cfg = {k: expand(v) for k, v in cfg.items()}
     if not cfg["run_name"]:
         cfg["run_name"] = Path(path).stem if path else "run"
     return cfg
@@ -112,6 +114,7 @@ def main(argv=None):
     ap.add_argument("--out-dir", dest="out_dir")
     ap.add_argument("--run-name", dest="run_name")
     ap.add_argument("--arms", nargs="+")
+    ap.add_argument("--buckets", nargs="+", help="only run these length buckets, e.g. 4k")
     args = ap.parse_args(argv)
     cfg = load_config(args.config, {k: v for k, v in vars(args).items() if k != "config"})
 

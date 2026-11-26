@@ -26,6 +26,7 @@ from pathlib import Path
 
 from src.data import read_jsonl
 from src.decode import generate
+from src.paths import expand
 from src.generate import build_prompt, load_model, pick_device
 from src.metrics import attended_tokens, dense_attended_tokens, exact_match
 from src.parse import check_trace, extract_answer, replay
@@ -54,7 +55,7 @@ def main():
     ap.add_argument("--model", default="Qwen/Qwen3-0.6B")
     ap.add_argument("--adapter")
     ap.add_argument("--data", default="data/niah_train.jsonl")
-    ap.add_argument("--out", required=True)
+    ap.add_argument("--out", required=True, help="a bare filename goes to $LTF_ROOT/data/")
     ap.add_argument("--n-questions", type=int, default=100)
     ap.add_argument("--buckets", nargs="+")
     ap.add_argument("--k", type=int, default=8)

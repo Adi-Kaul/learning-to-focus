@@ -1,0 +1,13 @@
+# phase 3: LoRA SFT on the 4B's own good traces (from sample_traces, masked)
+model: Qwen/Qwen3-4B
+data: /content/drive/MyDrive/learning-to-focus/data/sft_kept.jsonl
+out_dir: /content/drive/MyDrive/learning-to-focus/checkpoints/sft_qwen3_4b
+masked: true
+lora_r: 32
+lora_alpha: 64
+lr: 1.0e-4
+epochs: 2
+grad_accum: 16
+max_len: 20000
+save_steps: 50
+wandb: true

@@ -1,7 +1,7 @@
 # phase 1 warm-up: qwen3-0.6b learns the DA format on fake mini documents
 model: Qwen/Qwen3-0.6B
 data: data/synth_train.jsonl
-out_dir: checkpoints/sft_synth_0.6b
+out_dir: /content/drive/MyDrive/learning-to-focus/checkpoints/sft_synth_0.6b
 masked: true
 lora_r: 16
 lora_alpha: 32

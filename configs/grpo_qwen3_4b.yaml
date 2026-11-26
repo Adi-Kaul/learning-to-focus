@@ -1,0 +1,15 @@
+# phase 4: GRPO from the SFT adapter. 4k bucket only to keep rollouts affordable
+model: Qwen/Qwen3-4B
+adapter: /content/drive/MyDrive/learning-to-focus/checkpoints/sft_qwen3_4b/final
+data: /content/drive/MyDrive/learning-to-focus/data/grpo_train.jsonl
+out_dir: /content/drive/MyDrive/learning-to-focus/checkpoints/grpo_qwen3_4b_lam0.3
+masked: true
+lam: 0.3
+num_generations: 8
+prompts_per_step: 4
+max_completion_length: 512
+temperature: 0.8
+lr: 2.0e-5
+max_steps: 200
+save_steps: 25
+wandb: true

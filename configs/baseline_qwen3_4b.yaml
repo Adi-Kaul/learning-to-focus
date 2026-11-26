@@ -1,0 +1,10 @@
+# phase 2: does Qwen3-4B collapse under DA like the paper's small models do?
+# 297 test questions x 3 arms. greedy, so one seed is enough here
+model: Qwen/Qwen3-4B
+data: data/niah_test.jsonl
+arms: [vanilla, da_nomask, da]
+seeds: [0]
+temperature: 0.0
+max_new_tokens: 1024
+batch_size: 1
+out_dir: /content/drive/MyDrive/learning-to-focus/runs

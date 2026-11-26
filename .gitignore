@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.ipynb_checkpoints/
+
+# big stuff lives on drive, not in git
+data/raw/
+data/*.jsonl
+!data/README.md
+checkpoints/
+runs/
+wandb/
+outputs/
+
+# small result files are fine to commit, but not traces from big runs
+results/**/traces*.jsonl

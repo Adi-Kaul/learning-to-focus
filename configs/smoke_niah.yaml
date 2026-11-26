@@ -1,0 +1,8 @@
+# same as smoke.yaml but on real RULER prompts (4k bucket only)
+model: Qwen/Qwen3-0.6B
+data: data/niah_test.jsonl
+buckets: [4k]
+arms: [vanilla, da_nomask, da]
+limit: 4
+max_new_tokens: 300
+batch_size: 1

@@ -81,7 +81,7 @@ def generate(model, tokenizer, prompts, *, masked=True, max_new_tokens=1024,
     P = max(lens)
     pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else 0
     eos = _eos_ids(model, tokenizer)
-    gen = torch.Generator(device=device if device.type == "cuda" else "cpu").manual_seed(seed)
+    gen = torch.Generator(device=device).manual_seed(seed)
 
     # left pad so every row's last prompt token is at the same column
     offsets = [P - n for n in lens]
@@ -96,10 +96,19 @@ def generate(model, tokenizer, prompts, *, masked=True, max_new_tokens=1024,
 
     traces = [Trace(machine=TagMachine(p.layout.n_chunks)) for p in prompts]
 
-    # prefill. no masking during the prompt, same as the paper
-    out = model(input_ids=ids, attention_mask=attn[:, :P], position_ids=pos, use_cache=True, logits_to_keep=1)
-    cache = out.cache
-    logits = out.logits[:, -1]
+    # prefill. no masking during the prompt, same as the paper.
+    # if every row is the same prompt (sampling n answers to one question, which is what
+    # rejection sampling and GRPO do) we prefill once and copy the cache. that's B times less
+    # prefill work and no padding
+    if B > 1 and all(p.input_ids == prompts[0].input_ids for p in prompts):
+        out = model(input_ids=ids[:1], position_ids=pos[:1], use_cache=True, logits_to_keep=1)
+        out.cache.batch_repeat_interleave(B)
+        cache = out.cache
+        logits = out.logits[:, -1].expand(B, -1)
+    else:
+        out = model(input_ids=ids, attention_mask=attn[:, :P], position_ids=pos, use_cache=True, logits_to_keep=1)
+        cache = out.cache
+        logits = out.logits[:, -1]
 
     for step in range(max_new_tokens):
         tok, lp = _sample(logits, temperature, top_p, gen)

@@ -1,0 +1,7 @@
+# tiny local run to make sure nothing is broken before spending GPU time
+model: Qwen/Qwen3-0.6B
+data: data/synth_test.jsonl
+arms: [vanilla, da_nomask, da]
+limit: 3
+max_new_tokens: 200
+batch_size: 1

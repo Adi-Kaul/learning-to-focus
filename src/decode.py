@@ -33,6 +33,7 @@ class Trace:
     logprobs: list = field(default_factory=list)
     text: str = ""
     finished: bool = False     # hit EOS (as opposed to running out of budget)
+    eos_logprob: float = None  # logprob of the EOS token when it finished (GRPO wants it)
     machine: TagMachine = None
 
 
@@ -122,6 +123,7 @@ def generate(model, tokenizer, prompts, *, masked=True, max_new_tokens=1024,
             tid = int(tok[b])
             if tid in eos:
                 t.finished = True
+                t.eos_id, t.eos_logprob = tid, float(lp[b])
                 continue
             text = tokenizer.decode([tid])
             t.token_ids.append(tid)

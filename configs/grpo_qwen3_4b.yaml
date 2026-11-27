@@ -1,4 +1,4 @@
-# phase 4: GRPO from the SFT adapter. 4k bucket only to keep rollouts affordable
+# GRPO starting from the SFT adapter. 4k bucket only to keep rollouts affordable
 model: Qwen/Qwen3-4B
 adapter: $LTF_ROOT/checkpoints/sft_qwen3_4b/final
 data: $LTF_ROOT/data/grpo_train.jsonl

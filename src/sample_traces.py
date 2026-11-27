@@ -1,4 +1,4 @@
-"""Build SFT data (phase 3) and the vanilla reference costs (for the GRPO reward).
+"""Build SFT data and the vanilla reference costs (for the GRPO reward).
 
 Rejection sampling: for each training question, sample k DA traces from the model *with
 masking on*, and keep the ones that are correct, well formed, and focused on the chunk that

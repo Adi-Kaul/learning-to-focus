@@ -1,4 +1,4 @@
-# phase 1 warm-up: qwen3-0.6b learns the DA format on fake mini documents
+# warm-up: qwen3-0.6b learns the DA format on fake mini documents
 model: Qwen/Qwen3-0.6B
 data: data/synth_train.jsonl
 out_dir: $LTF_ROOT/checkpoints/sft_synth_0.6b

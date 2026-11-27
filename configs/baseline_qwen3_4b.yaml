@@ -1,4 +1,4 @@
-# phase 2: does Qwen3-4B collapse under DA like the paper's small models do?
+# does Qwen3-4B collapse under DA like the paper's small models do?
 # 297 test questions x 3 arms. greedy, so one seed is enough here
 model: Qwen/Qwen3-4B
 data: data/niah_test.jsonl

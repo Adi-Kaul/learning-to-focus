@@ -1,4 +1,4 @@
-"""Tiny fake documents for the warm-up experiment (phase 1).
+"""Tiny fake documents for the warm-up experiment.
 
 Each document is 3-5 magic chunks of ~100-200 tokens of boring filler. One chunk hides the
 fact we ask about ("The code for blue is 7731."). Some other chunks hide distractor facts
